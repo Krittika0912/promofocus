@@ -14,6 +14,7 @@ function App() {
   const [showSettings, setShowSettings] = useState(false);
   const [todos, setTodos] = useState([]);
   const [newTodo, setNewTodo] = useState(""); 
+  const [sessionCount, setSessionCount] = useState(0); 
   const toast = useToast();
   
 
@@ -28,13 +29,15 @@ function App() {
         if (time > 0) {
           setTime(time - 1);
         } else if (time === 0 && timerStart) {
-
+         
           toast({
             title: "Timer has stopped",
             status: "error",
-            position: "top-right"
+            position: "top-right",
+            colorScheme: "blue"
           });
           clearInterval(interval);
+          setSessionCount(prevCount => prevCount + 1); 
         }
       }
     }, 1000);
@@ -116,13 +119,14 @@ function App() {
                 ? toast({
                     title: "You need to set a timer first",
                     status: "warning",
-                    position: "top-right"
+                    position: "top-right",
+                    color: "#82A0AA"
                   })
                 : setTimerStart(!timerStart)
             }}
           />
 
-        
+       
           <IconButton
             aria-label="Settings"
             icon={<MdSettings />}
@@ -135,13 +139,20 @@ function App() {
           />
         </Flex>
 
-       
+        
         <Flex alignItems="center" justifyContent="center" flexDirection="column" position="relative">
           <CircularProgress value={time} max={initialTimer[0].value} color="#47817F" size="200px">
             <CircularProgressLabel>
               {formatTime(time)} 
             </CircularProgressLabel>
           </CircularProgress>
+        </Flex>
+
+      
+        <Flex alignItems="center" justifyContent="center" flexDirection="column" position="relative" mt={4}>
+          <Heading as="h2" size="md">
+            No. of Pomodoros: {sessionCount}
+          </Heading>
         </Flex>
 
         {showSettings && <Settings initialTimer={initialTimer} onUpdateSettings={handleUpdateSettings} />} 
