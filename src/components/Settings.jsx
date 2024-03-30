@@ -1,4 +1,4 @@
-// Settings.jsx
+
 import React, { useState } from 'react';
 import { Flex, Input, Button } from '@chakra-ui/react';
 
@@ -26,7 +26,7 @@ const Settings = ({ initialTimer, onUpdateSettings }) => {
           marginBottom="2"
         />
       ))}
-      <Button onClick={handleSave} colorScheme="blue">Save</Button>
+      <Button onClick={handleSave} colorScheme="#82A0AA">Save</Button>
     </Flex>
   );
 };
