@@ -5,7 +5,7 @@ import { formatTime } from "./utils/index";
 import PlayButton from './components/Playbutton';
 import ResetButton from './components/Resetbutton';
 import Settings from './components/Settings';
-import { MdAdd, MdDelete, MdDone, MdSettings } from "react-icons/md"; // Import MdSettings icon
+import { MdAdd, MdDelete, MdDone, MdSettings } from "react-icons/md"; 
 import { color } from 'framer-motion';
 
 function App() {
@@ -13,7 +13,7 @@ function App() {
   const [timerStart, setTimerStart] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [todos, setTodos] = useState([]);
-  const [newTodo, setNewTodo] = useState(""); // State for new todo input
+  const [newTodo, setNewTodo] = useState(""); 
   const toast = useToast();
   
 
@@ -28,7 +28,7 @@ function App() {
         if (time > 0) {
           setTime(time - 1);
         } else if (time === 0 && timerStart) {
-          playNotificationSound();
+
           toast({
             title: "Timer has stopped",
             status: "error",
@@ -46,7 +46,7 @@ function App() {
   const addTodo = () => {
     if (newTodo.trim() !== "") {
       setTodos([...todos, { text: newTodo.trim(), done: false }]);
-      setNewTodo(""); // Clear input after adding todo
+      setNewTodo(""); 
     }
   };
 
@@ -122,31 +122,31 @@ function App() {
             }}
           />
 
-          {/* Settings icon/button */}
+        
           <IconButton
             aria-label="Settings"
             icon={<MdSettings />}
             onClick={() => setShowSettings(!showSettings)}
             colorScheme="blackAlpha"
-            size="lg" // Set size to "lg" for large size
-            fontSize="lg" // Set font size to "lg" for large size
-            p={2} // Set padding to make the icon/button size consistent
+            size="lg" 
+            fontSize="lg" 
+            p={2} 
             boxSize={10}
           />
         </Flex>
 
-        {/* Circular Progress bar surrounding the timer */}
+       
         <Flex alignItems="center" justifyContent="center" flexDirection="column" position="relative">
           <CircularProgress value={time} max={initialTimer[0].value} color="#47817F" size="200px">
             <CircularProgressLabel>
-              {formatTime(time)} {/* Display remaining time inside the circular progress */}
+              {formatTime(time)} 
             </CircularProgressLabel>
           </CircularProgress>
         </Flex>
 
         {showSettings && <Settings initialTimer={initialTimer} onUpdateSettings={handleUpdateSettings} />} 
 
-        {/* Todo List Section */}
+       
         <Flex flexDirection="column" mt={8} alignItems="flex-start" textColor={'black'}>
           <InputGroup size="md" width="300px" textColor={'black'}>
             <Input
