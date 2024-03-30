@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Heading, Flex, Button, useToast, Input, InputGroup, InputRightElement, IconButton } from "@chakra-ui/react";
+import { Heading, Flex, Button, useToast, Input, InputGroup, InputRightElement, IconButton, Center } from "@chakra-ui/react";
 import { initialTimer } from "./config";
 import Time from './components/Time';
 import { formatTime } from "./utils";
 import PlayButton from './components/Playbutton';
 import ResetButton from './components/Resetbutton';
 import Settings from './components/Settings';
-import { MdAdd, MdDelete, MdDone } from "react-icons/md";
+import { MdAdd, MdDelete, MdDone, MdSettings } from "react-icons/md"; // Import MdSettings icon
 
 function App() {
   const [time, setTime] = useState(0);
@@ -78,7 +78,7 @@ function App() {
         minHeight="100vh" 
         maxW="80vw" 
       >
-        <Flex gap={{ base: 2, md: 5 }}>
+        <Flex gap={{ base: 2, md: 5 }} mb={4}>
           {initialTimer.map(({ value, display }) => (
             <Button
               key={value}
@@ -96,16 +96,11 @@ function App() {
               {display}
             </Button>
           ))}
-          <Button onClick={() => setShowSettings(!showSettings)} colorScheme="blackAlpha"  textTransform={"uppercase"}
-              fontWeight={"light"}
-              letterSpacing={"wide"}
-              fontSize={{ base: "small", md: "medium", lg: "lg" }}
-              color="white"
-              size={{ base: "xs", md: "md", lg: "lg" }}>Settings</Button> 
+         
         </Flex>
 
         <Time currentTime={time}/>
-        <Flex alignItems={"center"} gap={2}>
+        <Flex alignItems={"center"} gap={2} mb={4}>
           <ResetButton
             handleOnClick={() => {
               setTimerStart(false)
@@ -126,6 +121,18 @@ function App() {
                 : setTimerStart(!timerStart)
             }}
           />
+
+          {/* Settings icon/button */}
+          <IconButton
+            aria-label="Settings"
+            icon={<MdSettings />}
+            onClick={() => setShowSettings(!showSettings)}
+            colorScheme="blackAlpha"
+            size="medium" // Set size to "lg" for large size
+            fontSize="lg" // Set font size to "lg" for large size
+            p={2} // Set padding to make the icon/button size consistent
+            boxSize={10}
+          />
         </Flex>
 
         {showSettings && <Settings initialTimer={initialTimer} onUpdateSettings={handleUpdateSettings} />} 
@@ -143,7 +150,7 @@ function App() {
                 aria-label="Add todo"
                 icon={<MdAdd />}
                 onClick={addTodo}
-                colorScheme="#eff6ff"
+                
                 size="sm"
               />
             </InputRightElement>
