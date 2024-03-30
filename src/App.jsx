@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Heading, Flex, Button, useToast, Input, InputGroup, InputRightElement, IconButton, Center } from "@chakra-ui/react";
+import { Heading, Flex, Button, useToast, Input, InputGroup, InputRightElement, IconButton, CircularProgress, CircularProgressLabel } from "@chakra-ui/react";
 import { initialTimer } from "./config";
-import Time from './components/Time';
-import { formatTime } from "./utils";
+import { formatTime } from "./utils/index";
 import PlayButton from './components/Playbutton';
 import ResetButton from './components/Resetbutton';
 import Settings from './components/Settings';
@@ -99,7 +98,6 @@ function App() {
          
         </Flex>
 
-        <Time currentTime={time}/>
         <Flex alignItems={"center"} gap={2} mb={4}>
           <ResetButton
             handleOnClick={() => {
@@ -128,11 +126,20 @@ function App() {
             icon={<MdSettings />}
             onClick={() => setShowSettings(!showSettings)}
             colorScheme="blackAlpha"
-            size="medium" // Set size to "lg" for large size
+            size="lg" // Set size to "lg" for large size
             fontSize="lg" // Set font size to "lg" for large size
             p={2} // Set padding to make the icon/button size consistent
             boxSize={10}
           />
+        </Flex>
+
+        {/* Circular Progress bar surrounding the timer */}
+        <Flex alignItems="center" justifyContent="center" flexDirection="column" position="relative">
+          <CircularProgress value={time} max={initialTimer[0].value} color="green.400" size="200px">
+            <CircularProgressLabel>
+              {formatTime(time)} {/* Display remaining time inside the circular progress */}
+            </CircularProgressLabel>
+          </CircularProgress>
         </Flex>
 
         {showSettings && <Settings initialTimer={initialTimer} onUpdateSettings={handleUpdateSettings} />} 
@@ -150,7 +157,7 @@ function App() {
                 aria-label="Add todo"
                 icon={<MdAdd />}
                 onClick={addTodo}
-                
+                colorScheme="#eff6ff"
                 size="sm"
               />
             </InputRightElement>
