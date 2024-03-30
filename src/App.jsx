@@ -6,6 +6,7 @@ import PlayButton from './components/Playbutton';
 import ResetButton from './components/Resetbutton';
 import Settings from './components/Settings';
 import { MdAdd, MdDelete, MdDone, MdSettings } from "react-icons/md"; // Import MdSettings icon
+import { color } from 'framer-motion';
 
 function App() {
   const [time, setTime] = useState(0);
@@ -14,6 +15,7 @@ function App() {
   const [todos, setTodos] = useState([]);
   const [newTodo, setNewTodo] = useState(""); // State for new todo input
   const toast = useToast();
+  
 
   const handleUpdateSettings = (newTimings) => {
     console.log("Updated timings:", newTimings);
@@ -64,8 +66,8 @@ function App() {
   };
 
   return (
-    <Flex bgGradient="linear(to-tl, blue.700, blue.900)" align="center" minHeight="100vh" flexDirection="column">
-      <Heading color="white" letterSpacing="1px" textTransform="uppercase" fontWeight="thin" marginTop="7" marginBottom="5">Pomofocus</Heading>
+    <Flex bgGradient="linear(to-tl, blue.900, #BFFCF9)" align="center" minHeight="100vh" flexDirection="column">
+      <Heading color="#2A272A" letterSpacing="1px" textTransform="uppercase" fontWeight="bold" marginTop="7" marginBottom="5" textcolor='black' fontFamily={'Rubik Scribble'}>Pomofocus</Heading>
 
       <Flex
         bgGradient={"linear(to-b, red.700, red.900"}
@@ -135,7 +137,7 @@ function App() {
 
         {/* Circular Progress bar surrounding the timer */}
         <Flex alignItems="center" justifyContent="center" flexDirection="column" position="relative">
-          <CircularProgress value={time} max={initialTimer[0].value} color="green.400" size="200px">
+          <CircularProgress value={time} max={initialTimer[0].value} color="#47817F" size="200px">
             <CircularProgressLabel>
               {formatTime(time)} {/* Display remaining time inside the circular progress */}
             </CircularProgressLabel>
@@ -145,19 +147,21 @@ function App() {
         {showSettings && <Settings initialTimer={initialTimer} onUpdateSettings={handleUpdateSettings} />} 
 
         {/* Todo List Section */}
-        <Flex flexDirection="column" mt={8} alignItems="flex-start">
-          <InputGroup size="md" width="300px" color={'white'}>
+        <Flex flexDirection="column" mt={8} alignItems="flex-start" textColor={'black'}>
+          <InputGroup size="md" width="300px" textColor={'black'}>
             <Input
               placeholder="Add a new todo"
+              _placeholder={{ color: "black" }} 
               value={newTodo}
               onChange={(e) => setNewTodo(e.target.value)}
+              textColor={'black'}
             />
             <InputRightElement width="3rem">
               <IconButton
                 aria-label="Add todo"
                 icon={<MdAdd />}
                 onClick={addTodo}
-                colorScheme="#eff6ff"
+                colorScheme="#000000"
                 size="sm"
               />
             </InputRightElement>
@@ -171,14 +175,14 @@ function App() {
                     aria-label="Mark as done"
                     icon={<MdDone />}
                     onClick={() => toggleDone(index)}
-                    colorScheme={todo.done ? "green" : "gray"}
+                    colorScheme={todo.done ? "black" : "black"}
                     size="sm"
                   />
                   <IconButton
                     aria-label="Delete todo"
                     icon={<MdDelete />}
                     onClick={() => removeTodo(index)}
-                    colorScheme="red"
+                    colorScheme="#82A0AA"
                     size="sm"
                     ml={2}
                   />
